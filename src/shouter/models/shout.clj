@@ -1,7 +1,6 @@
 (ns shouter.models.shout
   (:require                                                 ;[clojure.java.jdbc :as sql]
     [datomic.api :refer [q db] :as d]
-    [shouter.models.migration :as mig]
     ))
 
 (def uri (System/getenv "HEROKU_DB_URI"))

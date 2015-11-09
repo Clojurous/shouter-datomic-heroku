@@ -15,22 +15,11 @@
   (route/resources "/")
   (route/not-found (layout/four-oh-four)))
 
-(defn wrap-connection [handler conn]
-  (fn [req] (handler (assoc req :dbconn conn))))
-
-;(defn application [conn] #(handler/site (wrap-connection routes conn)))
-
 (def application (handler/site routes))
-
-
-;(defn start [port conn]
-;  (run-jetty (application conn) {:port  port
-;                          :join? false}))
 
 (defn start [port]
   (run-jetty application {:port  port
                           :join? false}))
-
 
 (def ^:private transactor-defaults
   {:license-key            (System/getenv "DATOMIC_LICENSE_KEY")
@@ -49,12 +38,7 @@
    :sql-url                (System/getenv "HEROKU_DB_URL")
    :sql-user               (System/getenv "HEROKU_DB_USER")
    :sql-password           (System/getenv "HEROKU_DB_PASSWORD")
-   ;:sql-sslmode            "require"
-
    })
-
-;:data-dir (.getPath dir)
-
 
 (defn -main []
   (println "about to run datomic.transactor ...")
